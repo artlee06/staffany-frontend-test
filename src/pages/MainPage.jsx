@@ -13,28 +13,19 @@ import { useHistory } from "react-router-dom";
 
 //helpers
 import CalculatePay from "../helpers/CalculatePay";
-
-// export function reducer(state, action) {
-//   switch (action.type) {
-//     case "SET_TEXTFIELD":
-//       return {
-//         ...state,
-//         textFieldStr: action
-//       };
-//     case "TOGGLE_BUTTON":
-//       return {
-//         ...state,
-//         buttonBool: !state.buttonBool
-//       };
-// }
+import CalculateTime from "../helpers/CalculateTime";
 
 const initialState = {
+  startTime: 0,
+  endTime: 0,
   duration: 0,
   otLimit: 0,
   basicRate: 0,
   otRate: 0,
   pay: 0
 }
+
+
 
 export default function MainPage() {
   let history = useHistory();
@@ -53,6 +44,33 @@ export default function MainPage() {
       }
     })
   };
+
+  const handleStartTime = (value) => {
+    setPage(prevState => {
+      const { endTime, otLimit, basicRate, otRate } = prevState;
+      const durationInHours = CalculateTime(value, endTime);
+      return {
+        ...prevState,
+        startTime: value,
+        duration: durationInHours,
+        pay: CalculatePay(durationInHours, otLimit, basicRate, otRate)
+      }
+    })
+  };
+
+  const handleEndTime = (value) => {
+    setPage(prevState => {
+      const { startTime, otLimit, basicRate, otRate } = prevState;
+      const durationInHours = CalculateTime(startTime, value );
+      return {
+        ...prevState,
+        endTime: value,
+        duration: durationInHours,
+        pay: CalculatePay(durationInHours, otLimit, basicRate, otRate)
+      }
+    })
+  };
+
 
   const handleOTlimit = (value) => {
     setPage(prevState => {
@@ -127,12 +145,16 @@ export default function MainPage() {
               <Typography variant="h2">
                   Pay Calculator
               </Typography>
-              <NormalTextField title="Shift Duration" value={pageState.duration} onChange={(e) => handleDuration(e.target.value)}/>
-              <NormalTextField title="Overtime Hour Limit" value={pageState.otLimit} onChange={(e) => handleOTlimit(e.target.value)}/>
-              <NormalTextField title="Basic Pay Rate" value={pageState.basicRate} onChange={(e) => handleBasicRate(e.target.value)}/>
-              <NormalTextField title="Overtime Pay Rate" value={pageState.otRate} onChange={(e) => handleOTrate(e.target.value)}/>
+              <NormalTextField title="Start time" value= {pageState.startTime} onChange={(e) => handleStartTime(e.target.value)} type="string" />
+              <NormalTextField title="End time" value= {pageState.endTime} onChange={(e) => handleEndTime(e.target.value)} type="string"/>
+              <Typography variant="h6">
+                Duration is : ${pageState.duration}
+              </Typography>
+              <NormalTextField title="Overtime Hour Limit" value={pageState.otLimit} onChange={(e) => handleOTlimit(e.target.value)} type="number"/>
+              <NormalTextField title="Basic Pay Rate" value={pageState.basicRate} onChange={(e) => handleBasicRate(e.target.value)} type="number" />
+              <NormalTextField title="Overtime Pay Rate" value={pageState.otRate} onChange={(e) => handleOTrate(e.target.value)} type="number" />
               <Typography variant="h4">
-                Your pay is : {pageState.pay}
+                Your pay is : ${pageState.pay}
               </Typography>
             </ThemeProvider>
           </Box>

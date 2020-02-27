@@ -5,38 +5,8 @@ import Typography from "@material-ui/core/Typography";
 
 
 function NormalTextField(props) {
-    const{ onChange, value, title } = props;
+    const{ onChange, value, title, type } = props;
 
-      // const [pageState, setPage] = useState({
-  //   buttonBool: false,
-  //   textFieldStr: "",
-  //   dropdown: ""
-  // });
-
-  // const ButtonFragment = (props) => {
-  //   const handleButtonChange = () => {
-  //     props.toggleButton(prevState => {
-  //       return {
-  //         ...prevState,
-  //         buttonBool: !prevState.buttonBool
-  //       }
-  //     })
-  //   }
-
-  //   const handleTextField = (value) => {
-  //     props.onChangeTextField(prevState => {
-  //       return {
-  //         ...prevState,
-  //         textFieldStr: value
-  //       }
-  //     })
-  //   }
-  //   return (
-  //     <NormalButton
-  //       onChange={handleButtonChange}
-  //     />
-  //   )
-  // }
     return (
         <div>
             <Typography variant="h5">
@@ -45,7 +15,7 @@ function NormalTextField(props) {
             <TextField
                 value={value}
                 onChange={onChange}
-                type="number"
+                type={type}
             >
             </TextField>
         </div>

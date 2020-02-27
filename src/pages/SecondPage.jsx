@@ -50,7 +50,7 @@ export default function SecondPage() {
           <Box width="100%" mx="auto" mt={1} pt={0.5} pb={5}>
             <ThemeProvider theme={theme}>
               <Typography variant="h2">
-                  Second Page
+                  Welcome to the secret second page
               </Typography>
               <Button variant="contained" onClick={handleMain}>
                 Go to Main page 
