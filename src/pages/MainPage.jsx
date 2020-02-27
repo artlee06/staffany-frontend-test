@@ -148,7 +148,7 @@ export default function MainPage() {
               <NormalTextField title="Start time" value= {pageState.startTime} onChange={(e) => handleStartTime(e.target.value)} type="string" />
               <NormalTextField title="End time" value= {pageState.endTime} onChange={(e) => handleEndTime(e.target.value)} type="string"/>
               <Typography variant="h6">
-                Duration is : ${pageState.duration}
+                Duration is : {pageState.duration} hours
               </Typography>
               <NormalTextField title="Overtime Hour Limit" value={pageState.otLimit} onChange={(e) => handleOTlimit(e.target.value)} type="number"/>
               <NormalTextField title="Basic Pay Rate" value={pageState.basicRate} onChange={(e) => handleBasicRate(e.target.value)} type="number" />
